@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Rubik Wet Paint', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .calculator {
+            border: 2px solid #444;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .display {
+            width: 300px;
+            height: 50px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            text-align: right;
+            padding-right: 10px;
+            font-size: 24px;
+            line-height: 50px;
+            border-radius: 5px;
+            background-color: #e9e9e9;
+            font-family: 'Jaro', sans-serif;
+        }
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+        button {
+            font-size: 18px;
+            font-family: 'Rubik Wet Paint', sans-serif;
+            border-radius: 5px;
+            border: none;
+            background-color: #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff6200e0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            cursor: crosshair;
+        }
+        button:active {
+            background-color: #ccc;
+        }
+        .function {
+            background-color: #f0a500;
+            color: white;
+        }
+        .equal {
+            background-color: #0a74da;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="keys">
+            <button class="function" onclick="calculateSquareRoot()">Square root</button>
+            <button class="function" onclick="calculateAbs()">Absolute value</button>
+            <button class="function" onclick="calculateSquare()">Square (x²)</button>
+            <button class="function" onclick="calculateCube()">Cube (x³)</button>
+            <button class="function" onclick="calculatePower()">Power (x^y)</button>
+            <button class="function" onclick="calculateLog()">Log</button>
+            <button class="function" onclick="calculateExp()">Exponents (e^x)</button>
+            <button class="function" onclick="calculateSin()">Sin</button>
+            <button class="function" onclick="calculateCos()">Cos</button>
+            <button class="function" onclick="calculateTan()">Tan</button>
+            <button class="function" onclick="calculateFactorial()">Factorial (x!)</button>
+            <button class="function" onclick="calculateCbrt()">Cube root (∛x)</button>
+            <button class="function" onclick="calculateTenPower()">Ten power (10^x)</button>
+        </div>
+    </div>
+    <script>
+        function calculateSquareRoot() {
+    let number = prompt("Enter a number to find the square root:");
+    if (number !== null && !isNaN(number)) {
+        let decimal = Number(number);
+        if (decimal < 1) {
+            let numerator = 1;
+            let denominator = Math.round(1 / decimal);
+            displayResult(`√<span style="display:inline-block; vertical-align:super;">${numerator}</span>/<span style="display:inline-block; vertical-align:super;">${denominator}</span>`);
+        } else {
+            displayResult(`√<span style="display:inline-block; vertical-align:super;">${number}</span>`);
+        }
+    }
+}
+
+function calculateSin() {
+    let degrees = prompt("Enter an angle in degrees for sin(x):");
+    if (degrees !== null && !isNaN(degrees)) {
+        let radians = degrees * (Math.PI / 180);
+        let result = Math.sin(radians).toFixed(2);
+        displayResult(formatResult(result));
+    }
+}
+
+function calculateCos() {
+    let degrees = prompt("Enter an angle in degrees for cos(x):");
+    if (degrees !== null && !isNaN(degrees)) {
+        let radians = degrees * (Math.PI / 180);
+        let result = Math.cos(radians).toFixed(2);
+        displayResult(formatResult(result));
+    }
+}
+
+function calculateTan() {
+    let degrees = prompt("Enter an angle in degrees for tan(x):");
+    if (degrees !== null && !isNaN(degrees)) {
+        let radians = degrees * (Math.PI / 180);
+        let result = Math.tan(radians).toFixed(2);
+        displayResult(formatResult(result));
+    }
+}
+
+function formatResult(value) {
+    if (value < 1 && value > 0) {
+        let denominator = Math.round(1 / value);
+        return `√<span style="display:inline-block; vertical-align:super;">1</span>/<span style="display:inline-block; vertical-align:super;">${denominator}</span>`;
+    } else if (value == 1) {
+        return "√<span style='display:inline-block; vertical-align:super;'>1</span>";
+    }
+    return value;
+}
+
+function displayResult(result) {
+    let display = document.getElementById("display");
+    display.innerHTML = result; 
+}
+
+
+        function calculateAbs() {
+            let number = prompt("Enter a number to find its absolute value:");
+            if (number !== null && !isNaN(number)) {
+                let result = Math.abs(Number(number));
+                displayResult(result);
+            }
+        }
+
+        function calculateSquare() {
+            let number = prompt("Enter a number to square:");
+            if (number !== null && !isNaN(number)) {
+                let result = Math.pow(Number(number), 2);
+                displayResult(result);
+            }
+        }
+
+        function calculateCube() {
+            let number = prompt("Enter a number to cube:");
+            if (number !== null && !isNaN(number)) {
+                let result = Math.pow(Number(number), 3);
+                displayResult(result);
+            }
+        }
+
+        function calculatePower() {
+            let base = prompt("Enter the base:");
+            if (base !== null && !isNaN(base)) {
+                let exponent = prompt("Enter the exponent:");
+                if (exponent !== null && !isNaN(exponent)) {
+                    let result = Math.pow(Number(base), Number(exponent));
+                    displayResult(result);
+                }
+            }
+        }
+
+        function calculateLog() {
+            let number = prompt("Enter a number to find its logarithm:");
+            if (number !== null && !isNaN(number) && Number(number) > 0) {
+                let result = Math.log(Number(number));
+                displayResult(result);
+            } else {
+                alert("Logarithm is not defined for non-positive numbers.");
+            }
+        }
+
+        function calculateExp() {
+            let number = prompt("Enter a number for e^x:");
+            if (number !== null && !isNaN(number)) {
+                let result = Math.exp(Number(number));
+                displayResult(result);
+            }
+        }
+        function calculateFactorial() {
+            let number = prompt("Enter a non-negative integer for x!:");
+            if (number !== null && !isNaN(number) && Number(number) >= 0) {
+                let result = factorial(Number(number));
+                displayResult(result);
+            } else {
+                alert("Factorial is only defined for non-negative integers.");
+            }
+        }
+
+        function factorial(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            }
+            return n * factorial(n - 1);
+        }
+
+        function calculateCbrt() {
+            let number = prompt("Enter a number to find the cube root:");
+            if (number !== null && !isNaN(number)) {
+                let result = Math.cbrt(Number(number)).toFixed(2);
+                displayResult(result);
+            }
+        }
+
+        function calculateTenPower() {
+            let number = prompt("Enter a number for 10^x:");
+            if (number !== null && !isNaN(number)) {
+                let result = Math.pow(10, Number(number)).toFixed(2);
+                displayResult(result);
+            }
+        }
+        function clearDisplay() {
+            document.getElementById("display").innerText = '0';
+        }
+    </script>
+</body>
+</html>
